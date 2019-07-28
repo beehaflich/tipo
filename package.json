@@ -26,7 +26,6 @@
     "gulp-babel": "^8.0.0-beta.2",
     "gulp-eslint": "^6.0.0",
     "gulp-mocha": "^6.0.0",
-    "gulp-uglify": "^3.0.2",
     "mocha": "^6.2.0"
   }
 }

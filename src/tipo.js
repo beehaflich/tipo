@@ -2,27 +2,30 @@
 
 
 /**
- * tipo - tiny type detection
+ * A tiny, highly testable file;
+ * easy to add to your project and simple to use.
  *
- * @author beehaflich
+ * - No duck typing
+ * - Works cross-iframe
+ * - Works with non-primitive constructed objects (`new String()`, `new Number()`, etc)
+ *
+ * @author @tchaflich
  * @license MIT
- *
- * @param {window} window
- * @returns {undefined}
+ * @class
  */
 class tipo {
 
 
 	/**
-	 * Grab the type JavaScript believes the parameter to be
-	 * Native types will often have an uppercased string;
-	 * Remember to check for or normalize case when using this
+	 * Grab the type JavaScript believes the parameter to be.
+	 * Native types will often have an uppercased string,
+	 * so this function converts to lowercase for ease of use.
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {string}
 	 */
-	static getDetectedType(perhaps) {
-		var type = Object.prototype.toString.call(perhaps);
+	static getDetectedType(something) {
+		var type = Object.prototype.toString.call(something);
 		return type.replace(/\[object |]/gi, '').toLowerCase();
 	}
 
@@ -30,100 +33,99 @@ class tipo {
 	/**
 	 * Is the input a string?
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {boolean}
 	 */
-	static isString(perhaps) {
+	static isString(something) {
 		// things that don't work:
-		// typeof perhaps === 'string' doesn't work with new String()
-		// '' + perhaps === perhaps doesn't work with new String()
-		// perhaps instanceof String doesn't work cross-frame
-		return (Object.prototype.toString.call(perhaps) === '[object String]');
+		// typeof something === 'string' doesn't work with new String()
+		// '' + something === something doesn't work with new String()
+		// something instanceof String doesn't work cross-frame
+		return (Object.prototype.toString.call(something) === '[object String]');
 	}
 
 
 	/**
 	 * Is the input a number?
 	 * This will return true for NaN, despite how silly that sounds.
-	 * It is still of a Numeric type, much like Infinity
+	 * It is still of a "numeric" type, much like Infinity.
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {boolean}
 	 */
-	static isNumber(perhaps) {
+	static isNumber(something) {
 		// things that don't work:
-		// typeof perhaps === 'number' doesn't work with new Number()
-		// +perhaps === perhaps doesn't work with NaN or new Number()
-		// perhaps instanceof Number doesn't work cross-frame
-		return (Object.prototype.toString.call(perhaps) === '[object Number]');
+		// typeof something === 'number' doesn't work with new Number()
+		// +something === something doesn't work with NaN or new Number()
+		// something instanceof Number doesn't work cross-frame
+		return (Object.prototype.toString.call(something) === '[object Number]');
 	}
 
 
 	/**
 	 * Is the input an array?
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {boolean}
 	 */
-	static isArray(perhaps) {
+	static isArray(something) {
 		// ecmascript 5 has this built in, so let's use it if we can
 		if (Array.isArray) {
-			return Array.isArray(perhaps);
+			return Array.isArray(something);
 		}
 
 		// toString check as backup
-		return Object.prototype.toString.call(perhaps) === '[object Array]';
+		return Object.prototype.toString.call(something) === '[object Array]';
 	}
 
 
 	/**
 	 * Is the input a function?
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {boolean}
 	 */
-	static isFunction(perhaps) {
+	static isFunction(something) {
 		// Object.prototype.toString.call once again comes to the rescue
 		// This is really the only good way to tell, afaik
 		// Your only other options are checking if it has function-ish properties,
 		// which will fail if you have some earlier code adding function-ish
 		// prototypes to non-functions
-		return Object.prototype.toString.call(perhaps) === '[object Function]';
+		return Object.prototype.toString.call(something) === '[object Function]';
 	}
 
 
 	/**
 	 * Is the input an object?
-	 * This is here for completionism
-	 * Defining 'object' in javascript is not a trivial exercise
-	 * If this is producing undesirable results, reconsider using it
+	 * Defining 'object' in javascript is not a trivial exercise -
+	 * the specification used here is that the argument is a non-primitive.
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {undefined}
 	 */
-	static isObject(perhaps) {
+	static isObject(something) {
 		// things that don't work:
-		// perhaps instanceof Object not only fails cross-frame,
+		// something instanceof Object not only fails cross-frame,
 		// but will return true for any non-primitive in the same frame!
-		// typeof perhaps === 'object' has the same greedy problem as instanceof,
+		// typeof something === 'object' has the same greedy problem as instanceof,
 		// plus returns true for null, which was a flaw in the original ECMAScript
-		return (perhaps === Object(perhaps));
+		return (something === Object(something));
 	}
 
 
 	/**
 	 * Is the input undefined?
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {boolean}
 	 */
-	static isUndefined(perhaps) {
+	static isUndefined(something) {
 		// "wat r u doing"
 		// in JS you can redefine 'undefined'
 		// So if you want to know if something is truly undefined,
 		// the easiest way is to create your own.
 		// This empty self-executing anonymous function is an undefined factory!
-		return (perhaps === (function() {
+		return (something === (function() {
 			// empty!
 		})());
 	}
@@ -131,30 +133,30 @@ class tipo {
 
 	/**
 	 * Is the input null?
-	 * This one is really just in here for completion's sake
+	 * This one is really just in here for completion's sake.
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {boolean}
 	 */
-	static isNull(perhaps) {
+	static isNull(something) {
 		// This isn't exactly a type, but it's easy enough to detect
 		// Plus, we did one for undefined. Why not null?
-		return (perhaps === null);
+		return (something === null);
 	}
 
 
 	/**
 	 * Is the input a boolean?
 	 *
-	 * @param {*} perhaps
+	 * @param {*} something
 	 * @returns {boolean}
 	 */
-	static isBoolean(perhaps) {
+	static isBoolean(something) {
 		// now you'd think that there is an easy solution here, like with null
 		// ...nope!
 		// triple-equals fails here for constructed booleans
 		// more object prototypes... yay
-		return (Object.prototype.toString.call(perhaps) === '[object Boolean]');
+		return (Object.prototype.toString.call(something) === '[object Boolean]');
 	}
 
 }
