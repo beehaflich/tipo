@@ -1,0 +1,32 @@
+{
+  "name": "tipo",
+  "version": "1.0.0",
+  "description": "Quick and small type detection in JavaScript",
+  "main": "tipo.js",
+  "scripts": {
+    "test": "npx mocha --require @babel/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tchaflich/tipo.git"
+  },
+  "author": "Thomas Haflich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tchaflich/tipo/issues"
+  },
+  "homepage": "https://github.com/tchaflich/tipo#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "eslint": "^6.1.0",
+    "eslint-plugin-jsdoc": "^15.7.2",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0-beta.2",
+    "gulp-eslint": "^6.0.0",
+    "gulp-mocha": "^6.0.0",
+    "gulp-uglify": "^3.0.2",
+    "mocha": "^6.2.0"
+  }
+}

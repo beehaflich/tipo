@@ -1,0 +1,13 @@
+{
+	"env": {
+		"node": true,
+	},
+	"globals": {
+		"describe": "readonly",
+		"it": "readonly"
+	},
+	"rules": {
+		"max-lines": "off",
+		"max-lines-per-function": "off",
+	}
+}

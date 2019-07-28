@@ -1,2 +1,5 @@
 # tipo
-Quick and small type-detection code for JavaScript
+
+Quick and small type detection in JavaScript
+
+
